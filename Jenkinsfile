@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+      /*  stage('Build') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -74,7 +74,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Deploy staging') {
             agent {
@@ -89,14 +89,16 @@ pipeline {
                     node_modules/.bin/netlify --version
                     echo "Deploying to staging. Site ID: $NETLIFY_SITE_ID"
                     node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=build
+                    node_modules/.bin/netlify deploy --dir=build --json
                 '''
             }
         }
          stage('Approval') {
             steps {
                 timeout(time:1,  unit: 'MINUTES') {
-                    input message: 'Ready to deploy? ', ok: 'Yes, I am sure I want to deploy!'
+                    input message: 'Do you wish to deploy to production? ', ok: Yes, I am sure!
+
+
     
 }
             }
